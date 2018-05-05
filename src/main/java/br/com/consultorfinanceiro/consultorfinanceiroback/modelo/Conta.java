@@ -1,4 +1,4 @@
-package br.com.consultorfinanceiro.modelo;
+package br.com.consultorfinanceiro.consultorfinanceiroback.modelo;
 
 import java.util.Date;
 

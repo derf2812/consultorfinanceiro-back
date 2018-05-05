@@ -1,6 +1,4 @@
-package br.com.consultorfinanceiro.modelo;
-
-import java.util.ArrayList;
+package br.com.consultorfinanceiro.consultorfinanceiroback.modelo;
 
 public class Categoria {
 

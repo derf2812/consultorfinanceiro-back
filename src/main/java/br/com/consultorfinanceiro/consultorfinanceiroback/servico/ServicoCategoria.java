@@ -1,4 +1,4 @@
-package br.com.consultorfinanceiro.servico;
+package br.com.consultorfinanceiro.consultorfinanceiroback.servico;
 
 public interface ServicoCategoria {
 	

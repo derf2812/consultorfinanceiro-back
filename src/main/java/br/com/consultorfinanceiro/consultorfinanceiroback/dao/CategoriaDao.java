@@ -1,9 +1,9 @@
-package br.com.consultorfinanceiro.dao;
+package br.com.consultorfinanceiro.consultorfinanceiroback.dao;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.consultorfinanceiro.modelo.Categoria;
+import br.com.consultorfinanceiro.consultorfinanceiroback.modelo.Categoria;
 
 public class CategoriaDao {
 

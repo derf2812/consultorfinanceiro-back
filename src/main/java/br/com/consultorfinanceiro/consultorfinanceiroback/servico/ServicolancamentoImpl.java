@@ -1,0 +1,31 @@
+package br.com.consultorfinanceiro.consultorfinanceiroback.servico;
+
+import java.util.Date;
+
+import br.com.consultorfinanceiro.consultorfinanceiroback.modelo.Categoria;
+import br.com.consultorfinanceiro.consultorfinanceiroback.modelo.Conta;
+import br.com.consultorfinanceiro.consultorfinanceiroback.modelo.Lancamento;
+import br.com.consultorfinanceiro.consultorfinanceiroback.modelo.TipoLancamento;
+
+public class ServicolancamentoImpl implements ServicoLancamento 
+{
+	@Override
+	public void fazerLancamento(TipoLancamento tpoLancamento, Conta conta, Categoria categoria, int prazo, double valorLancamento) 
+	{
+	
+		Lancamento lancamento = new Lancamento();
+		lancamento.setTipolancamento(tpoLancamento);
+		lancamento.setConta(conta);
+		lancamento.setCategoria(categoria);
+		lancamento.setDataLancamento(new Date());
+		lancamento.setPrazo(prazo);
+		lancamento.setValorLancamento(valorLancamento);
+		
+		//salvar lancamento no bd
+		
+		double saldo = conta.getSaldo()+valorLancamento;
+		conta.setSaldo(saldo );
+		
+		//salvar conta no bd
+	}
+}
