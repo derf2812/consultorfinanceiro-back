@@ -2,16 +2,40 @@ package br.com.consultorfinanceiro.consultorfinanceiroback.modelo;
 
 import java.util.Date;
 
-public class Lancamento {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
+@Entity
+public class Lancamento {
+	
+	@Id
+	@GeneratedValue
 	private int lancamentoId;
+	
+	@Column(name="categoriaId")
 	private Categoria categoria;
+	
+	@Column(name="contaId")
 	private Conta conta;
+	
+	@Column(name="tipoLancamentoId")
 	private TipoLancamento tipolancamento;
+	
+	@Column
 	private int prazo;
+	
+	@Column
 	private double valorLancamento;
+	
+	@Column
 	private double taxa;
+	
+	@Column
 	private Date dataLancamento;
+	
+	@Column
 	private Date dataCancelamento;
 
 	public int getLancamentoId() {
