@@ -2,29 +2,35 @@ package br.com.consultorfinanceiro.consultorfinanceiroback.servicos;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.consultorfinanceiro.consultorfinanceiroback.dao.CategoriaDao;
+import br.com.consultorfinanceiro.consultorfinanceiroback.dao.CategoriaRepository;
 import br.com.consultorfinanceiro.consultorfinanceiroback.modelo.Categoria;
 
 @RestController
 public class ServicoTeste 
 {
-	@RequestMapping("/api/categoria")
+	@Inject
+	CategoriaRepository categoriaRepository;
+	
+	@CrossOrigin
+	@RequestMapping(method=RequestMethod.GET, name="/api/categoria")
 	public List<Categoria> getCategorias( ) 
+	{		
+		return categoriaRepository.findAll();
+	}
+	
+	@CrossOrigin
+	@RequestMapping(method=RequestMethod.POST, name="/api/categoria")
+	public void saveCategorias( 
+		final @RequestBody Categoria categoria )
 	{
-//		ServicoLancamento servico = new ServicolancamentoImpl();
-//		
-//		Conta conta = new Conta();
-//		Categoria categoriaSaldoInicial = new CategoriaDao().getByNome("Lazer");
-//		TipoLancamento receitaPontual = new TipoLancamento();
-//		
-//		servico.fazerLancamento(receitaPontual, conta , categoriaSaldoInicial, 0, 500);
-//		
-//		System.out.println(conta.getSaldo());
-//		System.out.println(categoriaSaldoInicial);
-		
-		return new CategoriaDao().listar();
+		categoriaRepository.save(categoria);
 	}
 }

@@ -18,7 +18,6 @@ public class Categoria {
 	@Column
 	private String tipoLancamentoCategoria;
 	
-	
 	public int getCategoriaId() {
 		return categoriaId;
 	}
@@ -48,7 +47,4 @@ public class Categoria {
 		return "Categoria [categoriaId=" + categoriaId + ", nomeCategoria=" + nomeCategoria
 				+ ", tipoLancamentoCategoria=" + tipoLancamentoCategoria + "]";
 	}
-	
-		
-
 }
