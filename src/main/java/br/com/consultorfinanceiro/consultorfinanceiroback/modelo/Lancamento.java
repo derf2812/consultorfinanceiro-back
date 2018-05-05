@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Lancamento {
@@ -15,12 +16,15 @@ public class Lancamento {
 	private int lancamentoId;
 	
 	@Column(name="categoriaId")
+	@OneToOne
 	private Categoria categoria;
 	
 	@Column(name="contaId")
+	@OneToOne
 	private Conta conta;
 	
 	@Column(name="tipoLancamentoId")
+	@OneToOne
 	private TipoLancamento tipolancamento;
 	
 	@Column

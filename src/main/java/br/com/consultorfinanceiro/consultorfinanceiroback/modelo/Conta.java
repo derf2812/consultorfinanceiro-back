@@ -2,15 +2,37 @@ package br.com.consultorfinanceiro.consultorfinanceiroback.modelo;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Conta {
 
+	@Id
+	@GeneratedValue
 	private int contaId;
+	
+	@Column
 	private String login;
+	
+	@Column
 	private String senha;
+	
+	@Column
 	private Date dataImplantacao;
+	
+	@Column
 	private Date dataCadastro;
+	
+	@Column
 	private double saldo;
+	
+	@Column
 	private String nomeUsuario;
+	
+	@Column
 	private String email;
 
 	public int getContaId() {

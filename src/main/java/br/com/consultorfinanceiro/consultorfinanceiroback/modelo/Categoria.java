@@ -1,9 +1,21 @@
 package br.com.consultorfinanceiro.consultorfinanceiroback.modelo;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Categoria {
 
+	@Id
+	@GeneratedValue
 	private int categoriaId;
+	
+	@Column
 	private String nomeCategoria;
+	
+	@Column
 	private String tipoLancamentoCategoria;
 	
 	
