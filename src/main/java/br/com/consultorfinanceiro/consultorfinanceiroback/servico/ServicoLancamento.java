@@ -9,4 +9,6 @@ public interface ServicoLancamento
 	public void fazerLancamento(Lancamento lancamento);
 
 	public Collection<Lancamento> getAllLancamentos();
+
+	public void apagarLancamento(int idLancamento);
 }

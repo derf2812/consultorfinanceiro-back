@@ -5,6 +5,7 @@ import java.util.Collection;
 import javax.inject.Inject;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,5 +33,13 @@ public class ServicoRestLancamento
 		@RequestBody Lancamento lancamento )
 	{
 		servicoLancamento.fazerLancamento(lancamento);
+	}
+	
+	@CrossOrigin
+	@RequestMapping(method=RequestMethod.DELETE, value="/api/lancamento")
+	private void apagarLancamento( 
+		@PathVariable("id") int idLancamento )
+	{
+		servicoLancamento.apagarLancamento( idLancamento );
 	}
 }
