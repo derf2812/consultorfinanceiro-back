@@ -1,12 +1,12 @@
 package br.com.consultorfinanceiro.consultorfinanceiroback.servico;
 
-import br.com.consultorfinanceiro.consultorfinanceiroback.modelo.Categoria;
-import br.com.consultorfinanceiro.consultorfinanceiroback.modelo.Conta;
-import br.com.consultorfinanceiro.consultorfinanceiroback.modelo.TipoLancamento;
+import java.util.Collection;
 
-public interface ServicoLancamento {
-	
-	public void fazerLancamento(TipoLancamento tpoLancamento, Conta conta, Categoria categoria, int prazo,
-			double valorLancamento);
+import br.com.consultorfinanceiro.consultorfinanceiroback.modelo.Lancamento;
 
+public interface ServicoLancamento 
+{
+	public void fazerLancamento(Lancamento lancamento);
+
+	public Collection<Lancamento> getAllLancamentos();
 }

@@ -6,8 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class TipoLancamento {
-
+public class TipoLancamento 
+{
 	@Id
 	@GeneratedValue
 	private int idTipoLancamento;

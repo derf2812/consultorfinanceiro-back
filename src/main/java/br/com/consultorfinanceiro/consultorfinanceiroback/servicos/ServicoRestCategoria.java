@@ -14,20 +14,20 @@ import br.com.consultorfinanceiro.consultorfinanceiroback.dao.CategoriaRepositor
 import br.com.consultorfinanceiro.consultorfinanceiroback.modelo.Categoria;
 
 @RestController
-public class ServicoTeste 
+public class ServicoRestCategoria 
 {
 	@Inject
-	CategoriaRepository categoriaRepository;
+	private CategoriaRepository categoriaRepository;
 	
 	@CrossOrigin
-	@RequestMapping(method=RequestMethod.GET, name="/api/categoria")
+	@RequestMapping(method=RequestMethod.GET, value="/api/categoria")
 	public List<Categoria> getCategorias( ) 
 	{		
 		return categoriaRepository.findAll();
 	}
 	
 	@CrossOrigin
-	@RequestMapping(method=RequestMethod.POST, name="/api/categoria")
+	@RequestMapping(method=RequestMethod.POST, value="/api/categoria")
 	public void saveCategorias( 
 		final @RequestBody Categoria categoria )
 	{
