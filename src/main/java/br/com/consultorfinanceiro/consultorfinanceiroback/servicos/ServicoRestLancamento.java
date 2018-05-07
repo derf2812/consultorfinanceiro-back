@@ -36,7 +36,7 @@ public class ServicoRestLancamento
 	}
 	
 	@CrossOrigin
-	@RequestMapping(method=RequestMethod.DELETE, value="/api/lancamento")
+	@RequestMapping(method=RequestMethod.DELETE, value="/api/lancamento/{id}")
 	private void apagarLancamento( 
 		@PathVariable("id") int idLancamento )
 	{
