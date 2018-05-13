@@ -31,7 +31,13 @@ public class Conta {
 	private Date dataCadastro;
 	
 	@Column
-	private double saldo;
+	private Double saldo;
+	
+	@Column
+	private Double saldoReceita;
+	
+	@Column
+	private Double saldoDespesa;
 	
 	@Column
 	private String nomeUsuario;
@@ -85,6 +91,22 @@ public class Conta {
 
 	public void setSaldo(double saldo) {
 		this.saldo = saldo;
+	}
+	
+	public Double getSaldoReceita() {
+		return saldoReceita == null ? 0 : saldoReceita;
+	}
+
+	public void setSaldoReceita(Double saldoReceita) {
+		this.saldoReceita = saldoReceita;
+	}
+
+	public Double getSaldoDespesa() {
+		return saldoDespesa == null ? 0 : saldoDespesa;
+	}
+
+	public void setSaldoDespesa(Double saldoDespesa) {
+		this.saldoDespesa = saldoDespesa;
 	}
 
 	public String getNomeUsuario() {

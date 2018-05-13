@@ -37,7 +37,12 @@ public class ServicolancamentoImpl implements ServicoLancamento {
 		double valLancamento = lancamento.getValorLancamento();
 
 		if (descLancamento.startsWith("despesa")) {
+			double saldoDespesa = lancamento.getConta().getSaldoDespesa() + valLancamento;
+			lancamento.getConta().setSaldoDespesa(saldoDespesa);
 			valLancamento = -valLancamento;
+		} else {
+			double saldoReceita = lancamento.getConta().getSaldoReceita() + valLancamento;
+			lancamento.getConta().setSaldoReceita(saldoReceita);
 		}
 
 		double saldo = lancamento.getConta().getSaldo() + valLancamento;
