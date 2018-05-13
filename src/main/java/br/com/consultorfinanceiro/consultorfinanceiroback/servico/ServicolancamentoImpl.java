@@ -13,41 +13,46 @@ import br.com.consultorfinanceiro.consultorfinanceiroback.dao.TipoLancamentoRepo
 import br.com.consultorfinanceiro.consultorfinanceiroback.modelo.Lancamento;
 
 @Component
-public class ServicolancamentoImpl implements ServicoLancamento 
-{
-	@Inject private TipoLancamentoRepository tpoLancRepo;
-	@Inject private CategoriaRepository catRepo;
-	@Inject private LancamentoRepository lancRepo;
-	@Inject private ContaRepository contaRepo;
-	
+public class ServicolancamentoImpl implements ServicoLancamento {
+	@Inject
+	private TipoLancamentoRepository tpoLancRepo;
+	@Inject
+	private CategoriaRepository catRepo;
+	@Inject
+	private LancamentoRepository lancRepo;
+	@Inject
+	private ContaRepository contaRepo;
+
 	@Override
-	public void fazerLancamento(
-		final Lancamento lancamento ) 
-	{
+	public void fazerLancamento(final Lancamento lancamento) {
 		tpoLancRepo.findById(lancamento.getTipolancamento().getIdTipoLancamento())
-			.ifPresent( lancamento::setTipolancamento );
-		
-		catRepo.findById( lancamento.getCategoria().getCategoriaId())
-		    .ifPresent( lancamento::setCategoria );
-		
-		contaRepo.findById( lancamento.getConta().getContaId())
-			.ifPresent( lancamento::setConta );
-		
-		double saldo = lancamento.getConta().getSaldo()+lancamento.getValorLancamento();
+				.ifPresent(lancamento::setTipolancamento);
+
+		catRepo.findById(lancamento.getCategoria().getCategoriaId()).ifPresent(lancamento::setCategoria);
+
+		contaRepo.findById(lancamento.getConta().getContaId()).ifPresent(lancamento::setConta);
+
+		String descLancamento = lancamento.getTipolancamento().getDescricaoLancamento().toLowerCase();
+
+		double valLancamento = lancamento.getValorLancamento();
+
+		if (descLancamento.startsWith("despesa")) {
+			valLancamento = -valLancamento;
+		}
+
+		double saldo = lancamento.getConta().getSaldo() + valLancamento;
 		lancamento.getConta().setSaldo(saldo);
-		
-		lancRepo.save( lancamento );
+
+		lancRepo.save(lancamento);
 	}
 
 	@Override
-	public Collection<Lancamento> getAllLancamentos( )
-	{
+	public Collection<Lancamento> getAllLancamentos() {
 		return lancRepo.findAll();
 	}
 
 	@Override
-	public void apagarLancamento( int idLancamento ) 
-	{
+	public void apagarLancamento(int idLancamento) {
 		lancRepo.deleteById(idLancamento);
 	}
 }

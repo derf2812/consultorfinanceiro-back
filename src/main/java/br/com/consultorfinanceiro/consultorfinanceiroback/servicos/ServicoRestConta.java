@@ -45,8 +45,8 @@ public class ServicoRestConta
 	
 	@CrossOrigin
 	@RequestMapping(method=RequestMethod.POST, value="/api/conta/zerarsaldo/{contaId}")
-	public void saveCategorias( 
-		@PathVariable("contaId") int contaId )
+	public void zerarSaldo( 
+		@PathVariable("contaId") Integer contaId )
 	{
 		repositorio.findById( contaId ).ifPresent( c -> {
 			c.setSaldo(0);
