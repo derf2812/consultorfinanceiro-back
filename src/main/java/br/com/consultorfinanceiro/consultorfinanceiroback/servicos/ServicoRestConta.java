@@ -91,6 +91,8 @@ public class ServicoRestConta
 	{
 		repositorio.findById( contaId ).ifPresent( c -> {
 			c.setSaldo(0d);
+			c.setSaldoDespesa(0d);
+			c.setSaldoReceita(0d);
 			repositorio.save(c);
 		});
 	}
