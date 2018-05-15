@@ -16,14 +16,14 @@ public class Conta {
 	@GeneratedValue
 	private int contaId;
 	
-	@Column
+	@Column(unique=true)
 	private String login;
 	
 	@Column
 	private String senha;
 	
 	@Column
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", locale="pt-br")
 	private Date dataImplantacao;
 	
 	@Column
@@ -85,11 +85,11 @@ public class Conta {
 		this.dataCadastro = dataCadastro;
 	}
 
-	public double getSaldo() {
+	public Double getSaldo() {
 		return saldo;
 	}
 
-	public void setSaldo(double saldo) {
+	public void setSaldo(Double saldo) {
 		this.saldo = saldo;
 	}
 	
@@ -108,7 +108,7 @@ public class Conta {
 	public void setSaldoDespesa(Double saldoDespesa) {
 		this.saldoDespesa = saldoDespesa;
 	}
-
+	
 	public String getNomeUsuario() {
 		return nomeUsuario;
 	}

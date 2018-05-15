@@ -11,4 +11,6 @@ public interface ServicoLancamento
 	public Collection<Lancamento> getAllLancamentos();
 
 	public void apagarLancamento(int idLancamento);
+
+	public Collection<Lancamento> findAllByContaId(Integer contaId);
 }

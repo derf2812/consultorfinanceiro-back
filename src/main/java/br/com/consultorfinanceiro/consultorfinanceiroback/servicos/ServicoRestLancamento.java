@@ -28,6 +28,14 @@ public class ServicoRestLancamento
 	}
 	
 	@CrossOrigin
+	@RequestMapping(method=RequestMethod.GET, value="/api/lancamento/conta/{id}")
+	private Collection<Lancamento> getLancamentosPorConta( 
+		@PathVariable("id") Integer contaId )
+	{
+		return servicoLancamento.findAllByContaId(contaId);
+	}
+	
+	@CrossOrigin
 	@RequestMapping(method=RequestMethod.POST, value="/api/lancamento")
 	private void criarLancamento( 
 		@RequestBody Lancamento lancamento )

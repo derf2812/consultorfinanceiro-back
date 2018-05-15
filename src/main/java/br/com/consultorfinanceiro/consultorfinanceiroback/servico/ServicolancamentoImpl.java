@@ -60,4 +60,9 @@ public class ServicolancamentoImpl implements ServicoLancamento {
 	public void apagarLancamento(int idLancamento) {
 		lancRepo.deleteById(idLancamento);
 	}
+
+	@Override
+	public Collection<Lancamento> findAllByContaId(Integer contaId) {
+		return lancRepo.findAllByContaId(contaId);
+	}
 }
