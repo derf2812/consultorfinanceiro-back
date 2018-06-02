@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.consultorfinanceiro.consultorfinanceiroback.modelo.Lancamento;
-import br.com.consultorfinanceiro.consultorfinanceiroback.servico.ServicoLancamento;
+import br.com.consultorfinanceiro.consultorfinanceiroback.servico.Servicolancamento;
 
 @RestController
 public class ServicoRestLancamento 
 {
 	@Inject
-	private ServicoLancamento servicoLancamento;
+	private Servicolancamento servicoLancamento;
 
 	@CrossOrigin
 	@RequestMapping(method=RequestMethod.GET, value="/api/lancamento")

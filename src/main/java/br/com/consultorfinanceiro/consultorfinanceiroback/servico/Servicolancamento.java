@@ -13,7 +13,8 @@ import br.com.consultorfinanceiro.consultorfinanceiroback.dao.TipoLancamentoRepo
 import br.com.consultorfinanceiro.consultorfinanceiroback.modelo.Lancamento;
 
 @Component
-public class ServicolancamentoImpl implements ServicoLancamento {
+public class Servicolancamento
+{
 	@Inject
 	private TipoLancamentoRepository tpoLancRepo;
 	@Inject
@@ -23,7 +24,6 @@ public class ServicolancamentoImpl implements ServicoLancamento {
 	@Inject
 	private ContaRepository contaRepo;
 
-	@Override
 	public void fazerLancamento(final Lancamento lancamento) {
 		tpoLancRepo.findById(lancamento.getTipolancamento().getIdTipoLancamento())
 				.ifPresent(lancamento::setTipolancamento);
@@ -51,17 +51,34 @@ public class ServicolancamentoImpl implements ServicoLancamento {
 		lancRepo.save(lancamento);
 	}
 
-	@Override
 	public Collection<Lancamento> getAllLancamentos() {
 		return lancRepo.findAll();
 	}
 
-	@Override
-	public void apagarLancamento(int idLancamento) {
-		lancRepo.deleteById(idLancamento);
+	public void apagarLancamento(int idLancamento) 
+	{
+		lancRepo.findById(idLancamento).ifPresent(lanc->{
+			String descLancamento = lanc.getTipolancamento().getDescricaoLancamento().toLowerCase();
+			double valLancamento = lanc.getValorLancamento();
+			
+			if (descLancamento.startsWith("receita")) {
+				double saldoReceita = lanc.getConta().getSaldoReceita() - valLancamento;
+				lanc.getConta().setSaldoReceita(saldoReceita);
+				valLancamento = -valLancamento;
+			} else {
+				double saldoDespesa = lanc.getConta().getSaldoDespesa() - valLancamento;
+				lanc.getConta().setSaldoDespesa(saldoDespesa);
+				valLancamento = +valLancamento;
+			}
+
+			double saldo = lanc.getConta().getSaldo() + valLancamento;
+			lanc.getConta().setSaldo(saldo);
+			
+			contaRepo.save(lanc.getConta());
+			lancRepo.deleteById(idLancamento);
+		});
 	}
 
-	@Override
 	public Collection<Lancamento> findAllByContaId(Integer contaId) {
 		return lancRepo.findAllByContaId(contaId);
 	}

@@ -44,6 +44,9 @@ public class Conta {
 	
 	@Column
 	private String email;
+	
+	@Column(precision=2)
+	private Double limiteGastoMensal;
 
 	public int getContaId() {
 		return contaId;
@@ -123,5 +126,13 @@ public class Conta {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Double getLimiteGastoMensal() {
+		return limiteGastoMensal;
+	}
+
+	public void setLimiteGastoMensal(Double limiteGastoMensal) {
+		this.limiteGastoMensal = limiteGastoMensal;
 	}
 }

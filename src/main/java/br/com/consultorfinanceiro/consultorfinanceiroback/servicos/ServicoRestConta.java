@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.consultorfinanceiro.consultorfinanceiroback.dao.ContaRepository;
 import br.com.consultorfinanceiro.consultorfinanceiroback.modelo.Conta;
+import br.com.consultorfinanceiro.consultorfinanceiroback.servico.ServicoConta;
 import br.com.consultorfinanceiro.consultorfinanceiroback.utils.Encrypt;
 import br.com.consultorfinanceiro.consultorfinanceiroback.utils.RetornoJS;
 
@@ -24,6 +25,8 @@ public class ServicoRestConta
 {
 	@Inject
 	private ContaRepository repositorio;
+	
+	@Inject ServicoConta servicoConta;
 	
 	@CrossOrigin
 	@RequestMapping(method=RequestMethod.GET, value="/api/conta")
@@ -47,13 +50,7 @@ public class ServicoRestConta
 	{
 		try
 		{
-			conta.setSaldo(0d);
-			conta.setSaldoDespesa(0d);
-			conta.setSaldoReceita(0d);
-			
-			conta.setSenha( Encrypt.toHash( conta.getSenha( ) ) );
-			
-			Conta contaSalva = repositorio.save(conta);
+			Conta contaSalva = servicoConta.criarNovaConta( conta ).get( );
 			
 			return new ResponseEntity<RetornoJS<Conta>>(new RetornoJS<>(contaSalva), HttpStatus.OK);
 		} 
@@ -89,12 +86,12 @@ public class ServicoRestConta
 	public void zerarSaldo( 
 		@PathVariable("contaId") Integer contaId )
 	{
-		repositorio.findById( contaId ).ifPresent( c -> {
-			c.setSaldo(0d);
-			c.setSaldoDespesa(0d);
-			c.setSaldoReceita(0d);
-			repositorio.save(c);
-		});
+		if( contaId == null )
+		{
+			throw new RuntimeException( "Parametro contaId Obrigatorio!" );
+		}
+		
+		servicoConta.zerarSaldo( contaId );
 	}
 	
 	@CrossOrigin
