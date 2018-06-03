@@ -10,7 +10,9 @@ import br.com.consultorfinanceiro.consultorfinanceiroback.dao.CategoriaRepositor
 import br.com.consultorfinanceiro.consultorfinanceiroback.dao.ContaRepository;
 import br.com.consultorfinanceiro.consultorfinanceiroback.dao.LancamentoRepository;
 import br.com.consultorfinanceiro.consultorfinanceiroback.dao.TipoLancamentoRepository;
+import br.com.consultorfinanceiro.consultorfinanceiroback.modelo.Conta;
 import br.com.consultorfinanceiro.consultorfinanceiroback.modelo.Lancamento;
+import br.com.consultorfinanceiro.consultorfinanceiroback.servicos.dtp.ValidacaoPercentualDTO;
 
 @Component
 public class Servicolancamento
@@ -81,5 +83,35 @@ public class Servicolancamento
 
 	public Collection<Lancamento> findAllByContaId(Integer contaId) {
 		return lancRepo.findAllByContaId(contaId);
+	}
+
+	public ValidacaoPercentualDTO validarLancamento(
+		final Lancamento lancamento )
+	{
+		tpoLancRepo.findById(lancamento.getTipolancamento().getIdTipoLancamento()).ifPresent(lancamento::setTipolancamento);
+		catRepo.findById(lancamento.getCategoria().getCategoriaId()).ifPresent(lancamento::setCategoria);
+		contaRepo.findById(lancamento.getConta().getContaId()).ifPresent(lancamento::setConta);
+
+		String descLancamento = lancamento.getTipolancamento().getDescricaoLancamento().toLowerCase();
+
+		double valLancamento = lancamento.getValorLancamento();
+
+		if (descLancamento.startsWith("despesa")) {
+			double saldoDespesa = lancamento.getConta().getSaldoDespesa() + valLancamento;
+			lancamento.getConta().setSaldoDespesa(saldoDespesa);
+			valLancamento = -valLancamento;
+		} else {
+			double saldoReceita = lancamento.getConta().getSaldoReceita() + valLancamento;
+			lancamento.getConta().setSaldoReceita(saldoReceita);
+		}
+
+		double saldo = lancamento.getConta().getSaldo() + valLancamento;
+		Conta conta = lancamento.getConta();
+		conta.setSaldo(saldo);
+		
+		ValidacaoPercentualDTO validacaoPercentualDTO = new ValidacaoPercentualDTO();
+		validacaoPercentualDTO.setPassou(
+			Math.round( ( ( conta.getSaldoDespesa() * 100 ) / conta.getSaldoReceita() ) ) > conta.getLimiteGastoMensal( ) );
+		return validacaoPercentualDTO;
 	}
 }

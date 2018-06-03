@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.consultorfinanceiro.consultorfinanceiroback.modelo.Lancamento;
 import br.com.consultorfinanceiro.consultorfinanceiroback.servico.Servicolancamento;
+import br.com.consultorfinanceiro.consultorfinanceiroback.servicos.dtp.ValidacaoPercentualDTO;
 
 @RestController
 public class ServicoRestLancamento 
@@ -49,5 +50,13 @@ public class ServicoRestLancamento
 		@PathVariable("id") int idLancamento )
 	{
 		servicoLancamento.apagarLancamento( idLancamento );
+	}
+	
+	@CrossOrigin
+	@RequestMapping(method=RequestMethod.POST, value="/api/lancamento/validar-percentual-futuro")
+	private ValidacaoPercentualDTO validarLancamento( 
+		@RequestBody Lancamento lancamento )
+	{
+		return servicoLancamento.validarLancamento(lancamento);
 	}
 }
